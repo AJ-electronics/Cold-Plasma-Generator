@@ -1,0 +1,242 @@
+\chapter{Appendices} \label{chap-app}
+\thispagestyle{empty}
+
+This appendix provides supplementary technical information related to the cold plasma generation system. It includes embedded firmware structure, calibration relationships, and implementation details to support reproducibility and deeper technical understanding.
+
+\vspace{0.3cm}
+
+% =====================================================
+\section{STM32 Control Firmware}
+
+The firmware is structured into modular blocks handling sensing, phase control, PWM generation, display, and protection logic.
+
+\vspace{0.3cm}
+
+\subsection{ADC Data Acquisition}
+
+\begin{lstlisting}[caption={ADC Sampling for Phase, Voltage and Current}]
+HAL_ADC_Start(&hadc1);
+
+HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+adc_val = HAL_ADC_GetValue(&hadc1);
+
+HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+adc_voltage = HAL_ADC_GetValue(&hadc1);
+
+HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+adc_current = HAL_ADC_GetValue(&hadc1);
+
+HAL_ADC_Stop(&hadc1);
+\end{lstlisting}
+
+% -----------------------------------------------------
+
+\subsection{Voltage Measurement Conversion}
+
+\begin{lstlisting}[caption={Voltage Sensor Conversion Function}]
+uint32_t get_voltage(uint32_t adc)
+{
+    float v;
+
+    v = (adc * 0.157f) - 1.1f;
+
+    if(v < 0) v = 0;
+    if(v > 500) v = 500;
+
+    return (uint32_t)v;
+}
+\end{lstlisting}
+
+% -----------------------------------------------------
+
+\subsection{Current Measurement Conversion}
+
+\begin{lstlisting}[caption={Current Sensor Conversion Function}]
+uint32_t get_current(uint32_t adc)
+{
+    float i;
+
+    i = adc * 0.3f;
+
+    if(i < 0) i = 0;
+    if(i > 3000) i = 3000;
+
+    return (uint32_t)i;
+}
+\end{lstlisting}
+
+% -----------------------------------------------------
+
+\subsection{Phase Shift Calculation}
+
+\begin{lstlisting}[caption={Phase Shift Calculation from ADC Input}]
+setup_phase = (adc_val * 425) / 4095;
+setup_phase = ((setup_phase + 4) / 5) * 5;
+
+setup_phase_deg = (setup_phase * 180) / 425;
+
+phase_display = (setup_phase_deg * 99) / 100 - 6;
+\end{lstlisting}
+
+% -----------------------------------------------------
+
+\subsection{Phase Shift Implementation}
+
+\begin{lstlisting}[caption={Applying Phase Shift using Timer Registers}]
+void Apply_Phase_Shift(uint32_t phase_counts)
+{
+    if(phase_counts >= 850) phase_counts = 849;
+
+    TIM1->CCR2 = phase_counts;
+
+    TIM1->EGR = TIM_EGR_UG;
+    TIM8->EGR = TIM_EGR_UG;
+}
+\end{lstlisting}
+
+% -----------------------------------------------------
+
+\subsection{PWM Start and Stop Control}
+
+\begin{lstlisting}[caption={PWM Enable/Disable Control}]
+void Start_PWM_With_Phase(void)
+{
+    TIM1->CNT = 0;
+    TIM8->CNT = 0;
+
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, phase_shift);
+
+    TIM1->EGR |= TIM_EGR_UG;
+
+    TIM1->BDTR |= TIM_BDTR_MOE;
+    TIM8->BDTR |= TIM_BDTR_MOE;
+}
+
+void Stop_PWM(void)
+{
+    TIM1->BDTR &= ~TIM_BDTR_MOE;
+    TIM8->BDTR &= ~TIM_BDTR_MOE;
+}
+\end{lstlisting}
+
+% -----------------------------------------------------
+
+\subsection{Overcurrent Protection}
+
+\begin{lstlisting}[caption={Overcurrent Protection Condition}]
+if(current_value > 1500)
+{
+    emergency_state = 1;
+    emergency_flag = 1;
+}
+\end{lstlisting}
+
+% -----------------------------------------------------
+
+\subsection{Emergency Mode Interrupt}
+
+\begin{lstlisting}[caption={External Interrupt for Emergency Stop}]
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if(GPIO_Pin == GPIO_PIN_3)
+    {
+        uint32_t now = HAL_GetTick();
+
+        if(now - last_interrupt_time > 250)
+        {
+            emergency_state ^= 1;
+            emergency_flag = 1;
+        }
+
+        last_interrupt_time = now;
+    }
+}
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% =====================================================
+\section{ADC Channel Configuration}
+
+The STM32 ADC operates in scan mode with three channels:
+
+\begin{itemize}
+    \item Channel 1 (PA0): Phase control input  
+    \item Channel 3 (PA2): Voltage sensing  
+    \item Channel 4 (PA3): Current sensing  
+\end{itemize}
+
+\vspace{0.3cm}
+
+% =====================================================
+\section{Calibration Equations}
+
+\subsection{Voltage Calibration}
+
+\[
+V = 0.157 \times \text{ADC} - 1.1
+\]
+
+\subsection{Current Calibration}
+
+\[
+I = 0.3 \times \text{ADC}
+\]
+
+\vspace{0.3cm}
+
+% =====================================================
+\section{Phase Control Mapping}
+
+\[
+\text{Phase Counts} = \frac{\text{ADC} \times 425}{4095}
+\]
+
+\[
+\text{Phase (degrees)} = \frac{\text{Phase Counts} \times 180}{425}
+\]
+
+\vspace{0.3cm}
+
+% =====================================================
+\section{PWM Generation Overview}
+
+\begin{itemize}
+    \item TIM1: Master PWM generator  
+    \item TIM8: Slave synchronized timer  
+    \item Complementary outputs used for H-bridge  
+    \item Phase shift applied using CCR2 register  
+\end{itemize}
+
+\vspace{0.3cm}
+
+% =====================================================
+\section{Protection Strategy}
+
+\begin{itemize}
+    \item Overcurrent threshold: 1500 mA  
+    \item Immediate PWM shutdown on fault  
+    \item Manual restart via external interrupt  
+\end{itemize}
+
+\vspace{0.3cm}
+
+% =====================================================
+\section{System Operating Modes}
+
+\begin{itemize}
+    \item PWM OFF Mode: Phase adjustment mode  
+    \item Normal Mode: PWM enabled with sensing and protection  
+\end{itemize}
+
+\vspace{0.3cm}
+
+% =====================================================
+\section{References for Appendix Data}
+
+\begin{itemize}
+    \item UCC21330 Gate Driver Datasheet, Texas Instruments  
+    \item IRFP460 MOSFET Datasheet  
+    \item STM32G431 Reference Manual, STMicroelectronics  
+    \item Cockcroft--Walton Voltage Multiplier Design References  
+\end{itemize}

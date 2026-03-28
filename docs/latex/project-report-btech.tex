@@ -1,0 +1,175 @@
+\documentclass[12pt,a4paper,natbib,openany]{report}
+
+\usepackage{float}
+
+% ------------------- Encoding & Fonts -------------------
+%\usepackage[latin1]{inputenc}        % For accented characters
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}             % Better font encoding
+\usepackage{times}                   % Times New Roman font
+\usepackage{microtype}               % Better typography
+\usepackage{booktabs}
+\usepackage{multicol}
+% ------------------- Page Layout -------------------
+\usepackage[left=1.25in, right=1.25in, top=1.25in, bottom=1.25in]{geometry}
+\setlength{\parindent}{12mm}
+
+% ------------------- Math & Symbols -------------------
+\usepackage{amsmath, amssymb, amsfonts}  % Math symbols
+\usepackage{siunitx}                      % SI units
+\sisetup{
+    detect-all,
+    per-mode=symbol,
+    range-phrase=--,
+    separate-uncertainty
+}
+\usepackage{textcomp}                     % Fixes the ohm symbol issue
+
+% ------------------- Figures & Tables -------------------
+\usepackage{graphicx}     
+\usepackage{caption}      
+\usepackage{subcaption}   
+\usepackage{longtable}    
+\usepackage{threeparttable}
+\usepackage{tabularx}     
+\usepackage{multirow}     
+\usepackage{rotating}     
+
+% ------------------- Lists & Enumerate -------------------
+\usepackage{enumerate}    
+\usepackage{enumitem}     
+
+% ------------------- References & Citations -------------------
+\usepackage[numbers,sort&compress]{natbib}  
+\usepackage{caption}  % in the preamble
+
+% ------------------- Hyperlinks & Colors -------------------
+\usepackage{hyperref}     
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+\usepackage{xcolor}       
+
+% ------------------- Appendix & Nomenclature -------------------
+\usepackage[titletoc]{appendix}
+\usepackage{nomencl}
+\makenomenclature
+
+    
+    \let\abbrev\nomenclature
+\renewcommand{\nomname}{Symbols and Abbreviations}
+\setlength{\nomlabelwidth}{.2\hsize}
+\setlength{\nomitemsep}{-\parsep}
+\makenomenclature
+\newcommand{\listofabbrev}{\printnomenclature}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{orange},
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    captionpos=b
+}
+
+
+
+
+% ------------------- Index -------------------
+\usepackage{makeidx,hyperref}
+\makeindex
+
+% ------------------- Spacing -------------------
+\usepackage{setspace}
+\onehalfspacing
+
+% ------------------- Chapter Formatting -------------------
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+{\normalsize \huge  \centering}
+{\bfseries \centering\chaptertitlename\hspace{1ex}{\thechapter}}
+{10pt}
+{\bfseries\huge}
+
+% ------------------- Custom Commands -------------------
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage
+}
+
+% ------------------- Begin Document -------------------
+\begin{document}
+
+% ------------------- Acronyms and Abbreviations -------------------
+\input{./editable-files/acr}      % Optional acronyms
+\input{./editable-files/abbrev}   % Abbreviations using \abbrev{...}{...}
+
+% ------------------- Non-editable title pages -------------------
+\include{./non-editable-files/title} 
+\pagenumbering{roman}
+\include{./non-editable-files/dec}
+\include{./non-editable-files/cert}\cleardoublepage
+
+% ------------------- Acknowledgement & Abstract -------------------
+\addcontentsline{toc}{chapter}{ACKNOWLEDGEMENT}
+\include{./editable-files/ack}\cleardoublepage
+\addcontentsline{toc}{chapter}{ABSTRACT}
+\include{./editable-files/ab}\cleardoublepage
+
+% ------------------- Table of contents, list of figures/tables -------------------
+\tableofcontents
+\addcontentsline{toc}{chapter}{TABLE OF CONTENTS}
+
+\listoftables
+\addcontentsline{toc}{chapter}{LIST OF TABLES} 
+
+\listoffigures
+\addcontentsline{toc}{chapter}{LIST OF FIGURES}
+
+% ------------------- Symbols and Abbreviations -------------------
+\listofabbrev
+\addcontentsline{toc}{chapter}{Symbols and Abbreviations}
+% ------------------- Chapters -------------------
+\cleardoublepage
+\pagenumbering{arabic}
+\onehalfspacing
+\include{./editable-files/abbrev}
+\include{./chapter-files/intro}
+\include{./chapter-files/lit}
+%\include{./chapter-files/data}
+\include{./chapter-files/design}
+\include{./chapter-files/simulation}
+\include{./chapter-files/hardware}
+\include{./chapter-files/result}
+\include{./chapter-files/conc}
+
+
+% ------------------- Appendices -------------------
+\begin{appendices}
+    \include{./chapter-files/app}
+\end{appendices}
+% ------------------- References -------------------
+{\singlespacing
+\renewcommand{\bibname}{References}
+
+\bibliography{bibliography-files/report}
+\bibliographystyle{IEEEtran}
+
+\addcontentsline{toc}{chapter}{REFERENCES}
+
+% ------------------- Index -------------------
+\singlespacing
+\twocolumn{\footnotesize \printindex }\cleardoublepage
+
+\end{document}

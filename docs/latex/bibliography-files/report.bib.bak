@@ -1,0 +1,153 @@
+% Encoding: UTF-8
+
+@ARTICLE{angels2007,
+  author = {Angels and Nath},
+  title = {Title of the article},
+  journal = {Journal of Purchase},
+  year = {2007},
+  volume = {23},
+  pages = {196--2004},
+  owner = {mechanical},
+  timestamp = {2013.05.27}
+}
+
+@ARTICLE{bijulal,
+  author = {D. Bijulal and {Anju A.} and Lekshmi},
+  title = {A study},
+  journal = {IJPR},
+  year = {2013},
+  volume = {134},
+  pages = {653-564},
+  number = {4},
+  owner = {mechanical},
+  timestamp = {2013.04.29}
+}
+
+@BOOK{bijulal2015,
+  title = {Ssytem Modelling and Simulation: A practitioner's Approach},
+  publisher = {Pearson Education Pte.},
+  year = {2015},
+  author = {D. Bijulal and V. Jayendran},
+  address = {NewDelhi},
+  owner = {MBA-FAC1},
+  timestamp = {2015.05.14}
+}
+
+@ARTICLE{croom2003,
+  author = {Croom and Johnston},
+  title = {Title of the article},
+  journal = {International Journam of Purchase},
+  year = {2003},
+  volume = {23},
+  pages = {78--93},
+  number = {4},
+  owner = {mechanical},
+  timestamp = {2013.05.27}
+}
+
+@ARTICLE{croom2005,
+  author = {Croom and Brandon-Jones},
+  title = {A title of the author's choice},
+  journal = {International Journal of Marketing},
+  year = {2005},
+  volume = {18},
+  pages = {34--46},
+  owner = {mechanical},
+  timestamp = {2013.05.27}
+}
+
+@ARTICLE{gill2000,
+  author = {Gilbert},
+  title = {Article title of the ppppp},
+  journal = {Journal of Management},
+  year = {2000},
+  volume = {34},
+  pages = {156--165},
+  number = {7},
+  owner = {mechanical},
+  timestamp = {2013.05.25}
+}
+
+@ARTICLE{harink2003,
+  author = {Harink},
+  title = {Title of Harink's paper},
+  journal = {Journal in which it was appeared},
+  year = {2003},
+  volume = {34},
+  pages = {23--41},
+  owner = {mechanical},
+  timestamp = {2013.05.29}
+}
+
+@ARTICLE{kala2001,
+  author = {Kalakota and Robinson},
+  title = {Title},
+  journal = {Journal},
+  year = {2001},
+  volume = {3},
+  pages = {61--68},
+  owner = {mechanical},
+  timestamp = {2013.05.27}
+}
+
+@ARTICLE{panayi2004,
+  author = {Panayiotou and Panayiotou and Panayiotou},
+  title = {A title},
+  journal = {Another journal of managemnet},
+  year = {2004},
+  volume = {45},
+  pages = {401--405},
+  number = {3},
+  owner = {mechanical},
+  timestamp = {2013.05.25}
+}
+
+@ARTICLE{pusch2005,
+  author = {Puschmann and Alt},
+  title = {Title of the paper},
+  journal = {Another journal of Management},
+  year = {2005},
+  volume = {22},
+  pages = {25--34},
+  number = {5},
+  owner = {mechanical},
+  timestamp = {2013.05.25}
+}
+
+@Article{robin2005,
+  author =    {Robinson and Roinson and Robinson},
+  title =     {Title of the paper},
+  journal =   {A journal of management},
+  year =      {2005},
+  volume =    {4},
+  number =    {1},
+  pages =     {512--520},
+  file =      {:C\:\\Users\\BIJULAL D\\Dropbox\\02-Academic\\OR-2014\\re-test.pdf:PDF},
+  owner =     {mechanical},
+  timestamp = {2013.05.25}
+}
+
+@BOOK{ster,
+  title = {Business Dynamics},
+  publisher = {McGraw Hill},
+  year = {2000},
+  author = {Sterman},
+  address = {New York},
+  edition = {4},
+  owner = {mechanical},
+  timestamp = {2013.04.29}
+}
+
+@ARTICLE{trk2010,
+  author = {Trkman and McCormack},
+  title = {title of the paper},
+  journal = {Management Journal of Royal Society},
+  year = {2010},
+  volume = {3},
+  pages = {128-132},
+  owner = {mechanical},
+  timestamp = {2013.05.25}
+}
+
+
+

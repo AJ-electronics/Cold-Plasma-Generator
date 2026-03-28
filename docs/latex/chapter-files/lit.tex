@@ -1,0 +1,42 @@
+\chapter{LITERATURE REVIEW}\label{chap-lit}
+\thispagestyle{empty}
+
+In this chapter, we review the existing literature related to the design and implementation of cold plasma generators, high-voltage pulsed power supplies, and plasma jet applications. The aim is to identify existing solutions, evaluate their performance, and find gaps that justify the development of the present project.\\
+The literature review is organized by classifying the available knowledge into sections and sub-sections, highlighting different design approaches, and pointing out limitations and opportunities for improvement.
+
+\section{High-Voltage Cold Plasma Generators}\label{sec-rev-topic1}
+
+Cold plasma generators rely on high-voltage, high-frequency pulsed power supplies to ionize a carrier gas such as argon or helium. The main challenge is achieving stable plasma generation at atmospheric pressure without excessive heating.
+
+\subsection{Laboratory-Scale Designs}\label{sec-rev-topic11}
+
+Diaz et al.~\cite{Diaz2022} presented a low-cost cold plasma generator designed for laboratory applications. The design employed an H-bridge inverter driving a high-voltage transformer, followed by a Cockcroft--Walton voltage multiplier to generate DC voltages in the 20--30~kV range. While the system was effective for small-scale experiments, it lacked precise voltage control and advanced switching features.
+
+\subsection{Compact High-Voltage Pulse Generators}\label{sec-rev-topic12}
+
+Spassov et al.~\cite{Spassov1997} demonstrated a compact high-voltage pulse generator for plasma applications. The system achieved reliable plasma generation, but its switching frequency was limited and the design was not optimized for atmospheric pressure cold plasma jets.
+
+\subsection{Atmospheric Pressure Cold Plasma Jets}\label{sec-rev-topic13}
+
+Cheng et al.~\cite{Cheng2006} developed an atmospheric pressure cold plasma jet generator for sterilization applications. The generator utilized high-voltage pulses to create a visible plasma jet. While the device successfully sterilized surfaces, the design required complex circuitry and offered limited output power control.
+
+
+
+
+\section{Methodology}\label{sec-rm}
+
+The methodology adopted for this project includes the following steps:  
+\begin{enumerate}
+    \item Studying literature on cold plasma generators, H-bridge inverters, high-voltage transformers, and Cockcroft--Walton voltage multipliers.
+    \item Designing the H-bridge inverter and selecting suitable MOSFETs (IRFP460) and gate drivers (UCC21330).
+    \item Programming the STM32G431 Microcontroller to generate high-resolution PWM signals for precise control of the H-bridge.
+    \item Constructing a prototype and integrating it with a mechanical setup for argon plasma jet generation.
+    \item Measuring output voltage, frequency, and plasma characteristics to validate design objectives.
+\end{enumerate}
+
+\section{Summary}
+
+This chapter reviewed the existing designs of cold plasma generators and high-voltage pulse systems. The analysis identified limitations in voltage control, switching performance, and integration with plasma jets. These findings form the basis for designing a ``compact, controllable cold plasma generator'' using the STM32G431 MCU, IRFP460 MOSFET H-bridge, and Cockcroft--Walton voltage multiplier for laboratory applications.
+
+% References cited in this chapter
+\nocite{Diaz2022, Spassov1997, Cheng2006}

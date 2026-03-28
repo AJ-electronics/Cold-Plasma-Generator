@@ -1,0 +1,41 @@
+﻿Step 1
+    Open the folder named "editable-files"
+    All the four files are to be edited for different purposes.
+    File "ab.tex" should be edited to include your abstract and a few key words included in it.
+    File "abbrev.tex" is only for abbreviation definitions. If abbreviations are not separately required in a page, ignore the file. Not needed to remove it.
+    File "ack.tex" is to include acknowledgements in the report. The mater for the acknowledgements has to be written in this file. Remember to do editing only in the space provided and marked for editing. 
+    File "acr.tex" is for defining the acronyms to be used in the report. That file has to be edited to include your personal details, department details, names of guide, HoD, coordinator, etc. 
+
+
+Once these files are edited, go to next step.
+
+Step 2
+    The folder "bibliography-files" contains the bibliography related files. It has a file named "report.tex" which contains the details of the references to be used in the report. Add required number of references to this file. Do not forget to use unique identification key to each entry. These keys will be used to cite and accordingly to create reference list entries.
+ 
+Step 3
+   Come back to the root folder. There is this file, a .pdf file, and one file named "project-report-btech.tex"
+	Rename the file to "name.tex"; where "name" is your name.
+    Open "name.tex" in your LaTeX editor (preferably TeXStudio)
+    Compile the file by using the green coloured 'play' button or F6 key in the keyboard.
+    Open "name.pdf" file after this compilation. You will get the contents modified by your editing made earlier in Step 1, in comparison to the file named “btech-project-report-template.pdf”. Modifications done in Step 2 will be visible only after the corresponding citation entries from the edited .bib file is used in some chapter of the report.
+
+
+Step 4
+    Open the folder "chapter-files". There will be many .tex files for eaxch chapter. You can edit these files and can notice the changes in the compiled file according to your editing.  
+
+Step 5
+    All figures required for the report have to be kept in the folder, "picture-files" folder. Preferred formats are .pdf, .png, .jpg, .jpeg, etc. Create .pdf or .png of them from the native programmes by which the figures are created, viz., MatLab, Mathematica, AutoCad, MSExcel, LibreOffice calc, draw, Visio, etc. 
+    If .pdf is created, make sure the white space of each images is cropped off appropriately.
+    The files should be included to the chapters using the codes similar to the ones used in the provided file.
+
+Step 6
+The tepmlate is prepared with certificate and declaration for  the first student. To prepare the report for the other students, follow these steps carefully.
+ -: Open the file "dec.tex" from the folder "non-editable-files" and replace "\stone" by "\sttwo" for the second student, "\stthree" for the third student, and "\stfour" for the fourth student. 
+ -: Open "cert.tex" from the folder "non-editable-files" and replace "\stone" as above. Replace "\RNONE" by "\RTWO" for the second, "\RNTHREE" for the third and "\RNFOUR" for the fourth student respectively. 
+ -: If the project group has three students, open, "title.tex" from the folder "non-editable-files" and hide the line no. 17 by using "%" symbol at the beginning of the line. 
+
+Step 7
+	Note down the errors during the compilation and communicate to me. Else, keep that paragraph hidden by using a “%” symbol as the first character and try compiling again. 
+    Better communicate the errors to me and get it cleared. 
+
+
